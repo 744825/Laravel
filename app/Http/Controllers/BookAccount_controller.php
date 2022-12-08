@@ -58,7 +58,6 @@ class BookAccount_controller extends Controller
 
             function update(Request $req)
             {
-
                 $bookAcc = BookOfAccountMaster::find($req->BOOKS_OF_A);
                 $input = $req->all();
                 $bookAcc->update($input);
