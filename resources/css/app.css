@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.action-div{
+    display: flex;
+    flex-direction: row;
+}
+
+.action-child{
+flex-grow: 1;
+}

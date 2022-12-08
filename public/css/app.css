@@ -1,0 +1,8 @@
+.action-div{
+
+width: 151px;
+}
+
+.action-child{
+flex-grow: 1;
+}
