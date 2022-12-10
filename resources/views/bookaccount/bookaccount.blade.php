@@ -1,23 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<link href="{{URL::asset('css/app.css')}}" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-</head>
-<body>
+<x-layout>
     @csrf
- <div class="table-responsive">
-    <table class="table table-primary" border=1>
+      <a href="{{url('bookaccount/create')}}" class="btn btn-success add-btn" >ADD</a>
+ <div class="my-centre">
+    <table class="table table-success table-hover table-striped my-child" >
 
-
-
-    </div>
-    <a href="{{url('bookaccount/create')}}" class="btn btn-success" >ADD</a>
         <thead>
             <tr>
                 <th scope="col">BOOKS_OF_A</th>
@@ -42,7 +28,7 @@
                 <form method="POST" action="{{ url('/bookaccount' . '/delete?id=' . $i->BOOKS_OF_A) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}
-                                                <button type="submit" class="btn btn-danger btn-sm" title="Delete Contact" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                                                <button type="submit" class="btn btn-danger btn-sm mybgred " title="Delete Contact" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                                             </form>
 
                 </td>
@@ -53,8 +39,10 @@
         </tbody>
     </table>
  </div>
+  <div class=" p-4">
+    {{$bookAccount->links()}}
+  </div>
+
+</x-layout>
 
 
-
-</body>
-</html>

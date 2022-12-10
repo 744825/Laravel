@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\BookOfAccountMaster;
@@ -11,10 +11,15 @@ class BookAccount_controller extends Controller
 {
     function index()
     {
-        $bookAccount=BookOfAccountMaster::all();
-        return view("bookaccount.bookaccount",compact('bookAccount'));
+
+
+        return view("bookaccount.bookaccount",[
+            'bookAccount' => BookOfAccountMaster::paginate(25)
+        ]);
 
         }
+
+
 
 
         function create()
@@ -24,16 +29,25 @@ class BookAccount_controller extends Controller
             }
 
 
-        function addBookAccount(Request $req)
+        function addBookAccount(Request $request)
         {
-            $bookAccount = new BookOfAccountMaster();
-            $bookAccount->SECTION_ID=$req->SECTION_ID;
-                $bookAccount->BOOKS_OF_A=$req->BOOKS_OF_A;
-                $bookAccount->BOOKS_OF_2=$req->BOOKS_OF_2;
-                $bookAccount->INSTITUTE=$req->INSTITUTE;
-                $bookAccount->LOCATION=$req->LOCATION;
-                $bookAccount->save();
-                return redirect('bookaccount');
+
+            $formFields = $request->validate([
+                'LOCATION' => 'required',
+                'BOOKS_OF_A' => ['required', Rule::unique('am_books_of_account_master', 'BOOKS_OF_A')],
+                'BOOKS_OF_2' => 'required',
+                'INSTITUTE' => 'required',
+                'SECTION_ID' => ['required', 'digits_between:1,4']
+
+            ]);
+
+            $formFields['user_id'] = auth()->id();
+
+            BookOfAccountMaster::create($formFields);
+
+            return redirect('/bookaccount')->with('message', 'Record is added successfully!');
+
+
 
 
             }
