@@ -29,7 +29,7 @@
 </head>
 
 <body class="mb-48">
-  <nav class="flex justify-between items-center mb-4">
+  <nav class="flex justify-between items-center mb-4 nav-shading">
     <a class="logo" href="/"><i class="fa fa-2x fa-house-chimney"></i></a>
     <ul class="flex space-x-6 mr-6 text-lg">
       @auth

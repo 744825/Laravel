@@ -4,18 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use App\Models\BookOfAccountMaster;
+use App\Models\PrincipalSubjectMaster;
 
-class BookAccount_controller extends Controller
+class PrincipalSubject_Controller extends Controller
 
 {
     //IMPORTANT
     //If this is changed corresponding changes need to be done web.php routing file
-    protected $endpoint='bookaccount';
-    protected $tableName = "Book Account Master";
+    protected $endpoint='principalsubject';
+    protected $tableName = "Principal Subject Master";
 
    private function model(){
-        return  new BookOfAccountMaster();
+        return  new PrincipalSubjectMaster();
     }
 
 
@@ -25,17 +25,18 @@ class BookAccount_controller extends Controller
         return view("table.display", [
             'endpoint' => $this->endpoint,
             'colName' => $this->model()->getCols() ,
-            'recordList' => BookOfAccountMaster::paginate(25) ]);
+            'recordList' => PrincipalSubjectMaster::paginate(25) ]);
     }
 
     function create()
     {
-        $mod = new BookOfAccountMaster();
+        $mod = new PrincipalSubjectMaster();
         return view("table.add",  [
             'colName' => $this->model()->getCols() ,
-            'endpoint' => $this->endpoint ,
+            'endpoint' => $this->endpoint,
             'tableName' => $this->tableName]
         );
+
     }
 
 
@@ -43,23 +44,22 @@ class BookAccount_controller extends Controller
     {
 
         $formFields = $request->validate([
-            'LOCATION' => 'required',
-            'BOOKS_OF_A' => ['required', Rule::unique('am_books_of_account_master', 'BOOKS_OF_A')],
-            'BOOKS_OF_2' => 'required',
-            'INSTITUTE' => 'required',
-            'SECTION_ID' => ['required', 'digits_between:1,2']
+            'PRINCIPAL2' => 'required',
+            'PRINCIPAL_' => ['required', Rule::unique('cms_principal_subject_master', 'PRINCIPAL_')],
+            'CC_CLASS_N' => 'required',
+            'DDC_CLASS_' => ['required', 'digits_between:1,2']
 
         ]);
 
         $formFields['user_id'] = auth()->id();
 
-        BookOfAccountMaster::create($formFields);
+        PrincipalSubjectMaster::create($formFields);
         return redirect("/" . $this->endpoint)->with('message', 'Record is added successfully!');
     }
 
     function edit($id)
     {
-        return view("table.edit", ['recordValue' => BookOfAccountMaster::find($id),
+        return view("table.edit", ['recordValue' => PrincipalSubjectMaster::find($id),
          'colName' => $this->model()->getCols(),
          'endpoint' => $this->endpoint,
          'tableName' => $this->tableName]
@@ -68,15 +68,15 @@ class BookAccount_controller extends Controller
 
     function delete(Request $req)
     {
-        BookOfAccountMaster::destroy($req->id);
+        PrincipalSubjectMaster::destroy($req->id);
         return redirect("/" . $this->endpoint)->with('message', 'Record is deleted successfully!');   //
     }
 
     function update(Request $req)
     {
-        $bookAcc = BookOfAccountMaster::find($req->BOOKS_OF_A);
+        $record = PrincipalSubjectMaster::find($req->PRINCIPAL_);
         $input = $req->all();
-        $bookAcc->update($input);
+        $record->update($input);
         return redirect("/" . $this->endpoint)->with('message', 'Record Updated successfully!');
     }
 }

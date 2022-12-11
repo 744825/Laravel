@@ -5,29 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BookOfAccountMaster extends Model
+class SectionMaster extends Model
 {
 
     use HasFactory;
 
-    protected $table='am_books_of_account_master';
-    protected $primaryKey = 'BOOKS_OF_A';
+    protected $table='cms_section_master';
+    protected $primaryKey = 'SECTION_ID';
     protected $fillable=[
-        'BOOKS_OF_A',
         'SECTION_ID',
-        'BOOKS_OF_2',
-        'INSTITUTE',
-        'LOCATION',
+        'INSTITUTE_',
+        'SECTION'
+
     ];
     public $timestamps = false;
 
     public function getCols(){
         return [
-            'BOOKS_OF_A',
             'SECTION_ID',
-            'BOOKS_OF_2',
-            'INSTITUTE',
-            'LOCATION',
+            'INSTITUTE_',
+            'SECTION'
         ];
     }
 }

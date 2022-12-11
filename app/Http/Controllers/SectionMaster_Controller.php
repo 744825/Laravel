@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use App\Models\BookOfAccountMaster;
+use App\Models\SectionMaster;
 
-class BookAccount_controller extends Controller
+use function Symfony\Component\String\b;
+
+class SectionMaster_Controller extends Controller
 
 {
     //IMPORTANT
     //If this is changed corresponding changes need to be done web.php routing file
-    protected $endpoint='bookaccount';
-    protected $tableName = "Book Account Master";
+    protected $endpoint='section-mstr';
+    protected $tableName = "Section Master";
 
    private function model(){
-        return  new BookOfAccountMaster();
+        return  new SectionMaster();
     }
 
 
@@ -25,41 +27,36 @@ class BookAccount_controller extends Controller
         return view("table.display", [
             'endpoint' => $this->endpoint,
             'colName' => $this->model()->getCols() ,
-            'recordList' => BookOfAccountMaster::paginate(25) ]);
+            'recordList' => SectionMaster::paginate(25) ]);
     }
 
     function create()
     {
-        $mod = new BookOfAccountMaster();
+        $mod = new SectionMaster();
         return view("table.add",  [
             'colName' => $this->model()->getCols() ,
-            'endpoint' => $this->endpoint ,
+            'endpoint' => $this->endpoint,
             'tableName' => $this->tableName]
         );
+
     }
 
 
     function add(Request $request)
     {
-
         $formFields = $request->validate([
-            'LOCATION' => 'required',
-            'BOOKS_OF_A' => ['required', Rule::unique('am_books_of_account_master', 'BOOKS_OF_A')],
-            'BOOKS_OF_2' => 'required',
-            'INSTITUTE' => 'required',
-            'SECTION_ID' => ['required', 'digits_between:1,2']
-
+            'SECTION_ID' => ['required', Rule::unique('cms_section_master', 'SECTION_ID')],
+            'INSTITUTE_' => ['required','between:1,10'],
+            'SECTION' => ['required','between:1,15']
         ]);
 
-        $formFields['user_id'] = auth()->id();
-
-        BookOfAccountMaster::create($formFields);
+        SectionMaster::create($formFields);
         return redirect("/" . $this->endpoint)->with('message', 'Record is added successfully!');
     }
 
     function edit($id)
     {
-        return view("table.edit", ['recordValue' => BookOfAccountMaster::find($id),
+        return view("table.edit", ['recordValue' => SectionMaster::find($id),
          'colName' => $this->model()->getCols(),
          'endpoint' => $this->endpoint,
          'tableName' => $this->tableName]
@@ -68,15 +65,22 @@ class BookAccount_controller extends Controller
 
     function delete(Request $req)
     {
-        BookOfAccountMaster::destroy($req->id);
+        SectionMaster::destroy($req->id);
         return redirect("/" . $this->endpoint)->with('message', 'Record is deleted successfully!');   //
     }
 
     function update(Request $req)
     {
-        $bookAcc = BookOfAccountMaster::find($req->BOOKS_OF_A);
-        $input = $req->all();
-        $bookAcc->update($input);
+        $record = SectionMaster::find($req->SECTION_ID);
+
+
+        $input = $req->validate([
+            'SECTION_ID' => ['required', Rule::exists('cms_section_master', 'SECTION_ID')],
+            'INSTITUTE_' => ['required','between:1,10'],
+            'SECTION' => ['required','between:1,15']
+
+        ]);
+        $record->update($input);
         return redirect("/" . $this->endpoint)->with('message', 'Record Updated successfully!');
     }
 }

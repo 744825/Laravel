@@ -36,3 +36,8 @@ my-child{
 .add-btn{
     margin-left: 1%;
 }
+
+.nav-shading{
+background-color: #f14f42;
+box-shadow: 0 2px 16px 6px lightgrey;
+}
