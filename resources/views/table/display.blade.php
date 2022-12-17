@@ -1,6 +1,8 @@
 <x-layout>
+  <x-tabledropdown>
+    </x-tabledropdown>
     @csrf
-      <a href="{{url($endpoint . '/create')}}" class="btn btn-success add-btn" >ADD</a>
+      <a href="{{url($endpoint . '/create')}}" class="btn btn-success add-btn" >Add New</a>
  <div class="my-centre">
     <table class="table table-success table-hover table-striped my-child" >
 

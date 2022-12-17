@@ -83,7 +83,7 @@ $formendpoint = "$endpoint" . "/update"
       </div> --}}
 
       <div class="mb-6">
-        <button type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">
+        <button type="submit" style="background-color:blue" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">
          submit
         </button>
       </div>

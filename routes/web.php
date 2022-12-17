@@ -7,19 +7,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookAccount_controller;
 use App\Http\Controllers\PrincipalSubject_Controller;
 use App\Http\Controllers\SectionMaster_Controller;
-
+use App\Http\Controllers\Holiday_Controller;
+use App\Http\Controllers\Department_Controller;
+use App\Http\Controllers\Education_Controller;
+use App\Http\Controllers\Institute_Controller;
 use Illuminate\Support\Facades\DB;
-/*
-A@shu_28
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
+
 require __DIR__.'/auth.php';
 
 Route::get('/dashboard', function () {
@@ -73,7 +67,7 @@ Route::get('/principalsubject/{id}/edit/',[PrincipalSubject_Controller::class,'e
 Route::post('/principalsubject/update',[PrincipalSubject_Controller::class,'update'])->middleware('auth');
 
 
-
+//section routing
 Route::get('/section-mstr',[SectionMaster_Controller::class,'index'])->middleware('auth');
 Route::get('/section-mstr/create',[SectionMaster_Controller::class,'create'])->middleware('auth');
 Route::post('/section-mstr/add',[SectionMaster_Controller::class,'add'])->middleware('auth');
@@ -81,4 +75,35 @@ Route::delete('/section-mstr/delete/',[SectionMaster_Controller::class,'delete']
 Route::get('/section-mstr/{id}/edit/',[SectionMaster_Controller::class,'edit'])->middleware('auth');
 Route::post('/section-mstr/update',[SectionMaster_Controller::class,'update'])->middleware('auth');
 
+//Holiday routing
+Route::get('/holiday',[Holiday_Controller::class,'index'])->middleware('auth');
+Route::get('/holiday/create',[Holiday_Controller::class,'create'])->middleware('auth');
+Route::post('/holiday/add',[Holiday_Controller::class,'add'])->middleware('auth');
+Route::delete('/holiday/delete/',[Holiday_Controller::class,'delete'])->middleware('auth');
+Route::get('/holiday/{id}/edit/',[Holiday_Controller::class,'edit'])->middleware('auth');
+Route::post('/holiday/update',[Holiday_Controller::class,'update'])->middleware('auth');
 
+//department routing
+Route::get('/department',[Department_Controller::class,'index'])->middleware('auth');
+Route::get('/department/create',[Department_Controller::class,'create'])->middleware('auth');
+Route::post('/department/add',[Department_Controller::class,'add'])->middleware('auth');
+Route::delete('/department/delete/',[Department_Controller::class,'delete'])->middleware('auth');
+Route::get('/department/{id}/edit/',[Department_Controller::class,'edit'])->middleware('auth');
+Route::post('/department/update',[Department_Controller::class,'update'])->middleware('auth');
+
+
+//equcation routing
+Route::get('/education',[Education_Controller::class,'index'])->middleware('auth');
+Route::get('/education/create',[Education_Controller::class,'create'])->middleware('auth');
+Route::post('/education/add',[Education_Controller::class,'add'])->middleware('auth');
+Route::delete('/education/delete/',[Education_Controller::class,'delete'])->middleware('auth');
+Route::get('/education/{id}/edit/',[Education_Controller::class,'edit'])->middleware('auth');
+Route::post('/education/update',[Education_Controller::class,'update'])->middleware('auth');
+
+//institute routing
+Route::get('/institute',[Institute_Controller::class,'index'])->middleware('auth');
+Route::get('/institute/create',[Institute_Controller::class,'create'])->middleware('auth');
+Route::post('/institute/add',[Institute_Controller::class,'add'])->middleware('auth');
+Route::delete('/institute/delete/',[Institute_Controller::class,'delete'])->middleware('auth');
+Route::get('/institute/{id}/edit/',[Institute_Controller::class,'edit'])->middleware('auth');
+Route::post('/institute/update',[Institute_Controller::class,'update'])->middleware('auth');
